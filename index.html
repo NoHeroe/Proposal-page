@@ -1,183 +1,239 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Pedido de Casamento</title>
   <style>
     /* mobile-only */
-    @media (min-width: 600px){ body { display: none; } }
+    @media (min-width: 600px) { body { display: none; } }/* reset e base */
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100vw; height:100vh;
+  overflow:hidden;
+  font-family: sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    /* base */
-    *{ margin:0; padding:0; box-sizing:border-box; }
-    html, body {
-      width:100vw; height:100vh;
-      overflow:hidden;
-      font-family: sans-serif;
-      background: #111;
-      color: #fff;
-    }
-    /* container scroll-snap */
-    #container {
-      height:100%; overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-    section.snap {
-      position: relative;
-      height:100vh; scroll-snap-align: start;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center;
-      background: #222 url('assets/cerejeira-dark.jpg') no-repeat center/cover;
-    }
-    /* pétalas */
-    .petal {
-      position:absolute; top:-10%;
-      width:30px; pointer-events:none;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-10vh) rotate(0deg); opacity:1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
-    }
-    /* ramos laterais */
-    .branch {
-      position:absolute; width:120px;
-      top:10%; opacity:0.8;
-    }
-    .branch.left  { left:-20px; transform: rotate(-15deg); }
-    .branch.right { right:-20px; transform: rotate(15deg); }
+/* container scroll-snap */
+#container {
+  height:100%; overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: relative;
+}
 
-    /* botão misterioso */
-    #mystery-btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: rgba(0,0,0,0.6);
-      border: 2px solid #8a2be2;
-      border-radius: 24px;
-      color: #8a2be2;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform .3s, background .3s;
-    }
-    #mystery-btn:active { transform: scale(0.95); background: rgba(0,0,0,0.8); }
+/* painéis flutuantes */
+.panel {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 90%;
+  text-align: center;
+  z-index: 10;
+}
 
-    /* nostalgia sections */
-    .nostalgia {
-      background: #111 url('assets/nostalgia-bg.jpg') no-repeat center/cover;
-      filter: sepia(20%);
-    }
+section.snap {
+  position: relative;
+  height:100vh; scroll-snap-align: start;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
 
-    /* modal */
-    #proposal-modal {
-      position:fixed; inset:0;
-      background: rgba(0,0,0,0.9);
-      display:flex; align-items:center; justify-content:center;
-      opacity:0; pointer-events:none;
-      transition: opacity .5s;
-    }
-    #proposal-modal.show {
-      opacity:1; pointer-events:auto;
-    }
-    .modal-content {
-      background: #222; padding:20px; border-radius:12px;
-      max-width:80%; text-align:center;
-      animation: popIn .4s ease-out;
-    }
-    @keyframes popIn {
-      0% { transform: scale(0.5); opacity:0; }
-      100% { transform: scale(1); opacity:1; }
-    }
-    .modal-content button {
-      margin-top: 16px;
-      padding: 8px 16px;
-      background: #8a2be2;
-      border:none; border-radius:8px;
-      color:#fff; font-size:14px;
-      cursor:pointer;
-    }
+/* fundos para cada parte */
+#part1 { background: url('assets/bg-tree-crown.jpg') center/cover no-repeat; }
+#part2 { background: url('assets/bg-tree-middle.jpg') center/cover no-repeat; }
+#part3 { background: url('assets/bg-tree-zoomout.jpg') center/cover no-repeat; }
+#part4 { background: url('assets/bg-buried.jpg') center/cover no-repeat; }
+#part5 { background: url('assets/bg-magical-cave.jpg') center/cover no-repeat; }
+#part6 { background: url('assets/bg-cave-floor.jpg') center/cover no-repeat; }
+
+/* botão e pulsação */
+.btn {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid #8a2be2;
+  border-radius: 24px;
+  color: #8a2be2;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform .3s;
+}
+.btn:active { transform: scale(0.95); }
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* pétalas: back e front */
+.petal-bg, .petal-fg {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%; pointer-events:none;
+}
+.petal {
+  position:absolute;
+  animation: fall linear infinite;
+  opacity:0.8;
+}
+@keyframes fall {
+  0% { transform: translateY(-20vh) rotate(0deg); opacity:1; }
+  100% { transform: translateY(120vh) rotate(360deg); opacity:0; }
+}
+
+/* Nostalgia */
+.nostalgia1 { background: url('assets/bg-sky.jpg') center/cover no-repeat; }
+.nostalgia2 { background: url('assets/bg-sky-reflection.jpg') center/cover no-repeat; }
+.nostalgia3 { background: url('assets/bg-sky-horizon.jpg') center/cover no-repeat; }
+
+/* modal */
+#proposal-modal {
+  position:fixed; inset:0;
+  background: rgba(0,0,0,0.9);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition: opacity .5s;
+  z-index: 20;
+}
+#proposal-modal.show {
+  opacity:1; pointer-events:auto;
+}
+.modal-content {
+  background: rgba(0,0,0,0.7);
+  padding:20px; border-radius:12px;
+  max-width:85%; text-align:center;
+  animation: popIn .4s ease-out;
+}
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity:0; }
+  100% { transform: scale(1); opacity:1; }
+}
+.modal-content button {
+  margin-top:16px;
+  padding:8px 16px;
+  background:#8a2be2;
+  border:none; border-radius:8px;
+  color:#fff; font-size:14px;
+  cursor:pointer;
+}
+
+/* vortex overlay */
+#vortex {
+  position:fixed; inset:0; pointer-events:none; z-index:15;
+  background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
+  animation: vortexAnim .8s forwards;
+}
+@keyframes vortexAnim {
+  0% { transform: scale(0.5) rotate(0deg); opacity:0; }
+  100% { transform: scale(3) rotate(720deg); opacity:1; }
+}
+
   </style>
 </head>
 <body>
   <div id="container">
-    <!-- Intro 1 -->
-    <section class="snap" id="part1">
-      <img src="assets/branch-left.png" class="branch left">
-      <img src="assets/branch-right.png" class="branch right">
-      <h1>Você aceita casar comigo?</h1>
-      <!-- pétalas -->
-    </section>
-    <!-- Intro 2 -->
-    <section class="snap" id="part2">
-      <img src="assets/branch-left.png" class="branch left">
-      <img src="assets/branch-right.png" class="branch right">
-      <p>Cada momento contigo é uma pétala no vento…</p>
-    </section>
-    <!-- Intro 3 com botão -->
-    <section class="snap" id="part3">
-      <img src="assets/branch-left.png" class="branch left">
-      <img src="assets/branch-right.png" class="branch right">
-      <p>Deslize mais uma vez para a surpresa final</p>
-      <button id="mystery-btn">Surpresa →</button>
-    </section>
-    <!-- Nostalgia 1 -->
-    <section class="snap nostalgia" id="nost1">
-      <h2>Nossos Melhores Momentos</h2>
-      <img src="assets/foto1.jpg" style="width:80%;border-radius:8px;">
-    </section>
-    <!-- Nostalgia 2 -->
-    <section class="snap nostalgia" id="nost2">
-      <h2>Lembrou disso?</h2>
-      <img src="assets/foto2.jpg" style="width:80%;border-radius:8px;">
-    </section>
-    <!-- Nostalgia 3 com modal trigger -->
-    <section class="snap nostalgia" id="nost3">
-      <h2>Pronto para mais?</h2>
-      <button id="open-modal">Ver Proposta</button>
-    </section>
+    <!-- pétalas fundo -->
+    <div class="petal-bg"></div><!-- 6 telas de introdução -->
+<section id="part1" class="snap">
+  <div class="panel">
+    <p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p>
   </div>
+</section>
+<section id="part2" class="snap">
+  <div class="panel">
+    <p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p>
+  </div>
+</section>
+<section id="part3" class="snap">
+  <div class="panel">
+    <p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p>
+    <button id="btn3" class="btn pulse">Toque para continuar</button>
+  </div>
+</section>
+<section id="part4" class="snap">
+  <div class="panel">
+    <p>A jornada mais linda da vida… começa com um passo inesperado.</p>
+  </div>
+</section>
+<section id="part5" class="snap">
+  <div class="panel">
+    <p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p>
+  </div>
+</section>
+<section id="part6" class="snap">
+  <div class="panel">
+    <p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p>
+    <button id="portalBtn" class="btn pulse">Descobrir o segredo →</button>
+  </div>
+</section>
 
-  <!-- Modal de proposta -->
-  <div id="proposal-modal">
+<!-- 3 telas nostalgia -->
+<section class="snap nostalgia1">
+  <div class="panel">
+    <p>Cada lembrança, um capítulo do nosso livro.</p>
+  </div>
+</section>
+<section class="snap nostalgia2">
+  <div class="panel">
+    <p>Cada sorriso, cada gesto… guardados para sempre.</p>
+  </div>
+</section>
+<section class="snap nostalgia3">
+  <div class="panel">
+    <p>Agora, só falta uma pergunta ser respondida.</p>
+    <button id="open-modal" class="btn">Clique para descobrir</button>
+  </div>
+</section>
+
+  </div>  <!-- pétalas frente -->  <div class="petal-fg"></div>  <!-- Modal de proposta -->  <div id="proposal-modal">
     <div class="modal-content">
-      <h2>Casa comigo, [nome dela]? 💍</h2>
-      <p>Para sempre ao seu lado.</p>
+      <h2>[Nome dela], você aceita casar comigo? 💍</h2>
+      <p>Prometo ser seu companheiro, sua força e seu abrigo… para sempre.</p>
       <button id="close-modal">Fechar</button>
     </div>
-  </div>
-
-  <script>
-    // gera pétalas
-    function spawnPetal(){
+  </div>  <script>
+    const container = document.getElementById('container');
+    const bgLayer = document.querySelector('.petal-bg');
+    const fgLayer = document.querySelector('.petal-fg');
+    
+    // gera pétalas em background (pequenas lentas) e foreground (maiores rápidas)
+    function spawnPetal(layer, size, durationRange) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
       p.className = 'petal';
+      p.style.width = size + 'px';
       p.style.left = Math.random()*100 + 'vw';
-      p.style.animationDuration = (4 + Math.random()*4) + 's';
-      document.body.append(p);
-      setTimeout(()=> p.remove(), 8000);
+      const dur = durationRange[0] + Math.random()*(durationRange[1]-durationRange[0]);
+      p.style.animationDuration = dur + 's';
+      layer.append(p);
+      setTimeout(() => p.remove(), dur * 1000);
     }
-    setInterval(spawnPetal, 300);
+    setInterval(() => spawnPetal(bgLayer, 20, [8,12]), 400);
+    setInterval(() => spawnPetal(fgLayer, 40, [5,8]), 800);
 
-    // mystery-btn scroll to nostalgia
-    document.querySelector('#mystery-btn')
-      .addEventListener('click', ()=>{
-        document.getElementById('container')
-          .scrollTo({ top: window.innerHeight*3, behavior:'smooth' });
-      });
+    // botões de navegação
+    document.getElementById('btn3').onclick = () => {
+      container.scrollTo({ top: window.innerHeight*3, behavior:'smooth' });
+    };
+    document.getElementById('portalBtn').onclick = () => {
+      const vortex = document.createElement('div'); vortex.id = 'vortex';
+      document.body.append(vortex);
+      setTimeout(() => {
+        container.scrollTo({ top: window.innerHeight*6, behavior:'smooth' });
+        vortex.remove();
+      }, 800);
+    };
 
-    // abre/fecha modal
-    document.querySelector('#open-modal')
-      .addEventListener('click', ()=> {
-        document.getElementById('proposal-modal')
-          .classList.add('show');
-      });
-    document.querySelector('#close-modal')
-      .addEventListener('click', ()=> {
-        document.getElementById('proposal-modal')
-          .classList.remove('show');
-      });
-  </script>
-</body>
+    // modal nostalgia final
+    document.getElementById('open-modal').onclick = () => {
+      document.getElementById('proposal-modal').classList.add('show');
+    };
+    document.getElementById('close-modal').onclick = () => {
+      document.getElementById('proposal-modal').classList.remove('show');
+    };
+  </script></body>
 </html>
