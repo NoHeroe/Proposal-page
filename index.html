@@ -5,166 +5,144 @@
   <title>Pedido de Casamento</title>
   <style>
     /* mobile-only */
-    @media (min-width: 600px) { body { display: none; } }/* reset e base */
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  width:100vw; height:100vh;
-  overflow:hidden;
-  font-family: sans-serif;
-  background: #000;
-  color: #fff;
-}
-
-/* container scroll-snap */
-#container {
-  height:100%; overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  position: relative;
-}
-
-/* painéis flutuantes */
-.panel {
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
-  padding: 20px;
-  border-radius: 16px;
-  max-width: 90%;
-  text-align: center;
-  z-index: 10;
-}
-
-section.snap {
-  position: relative;
-  height:100vh; scroll-snap-align: start;
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
-}
-
-/* fundos para cada parte */
-#part1 { background: url('assets/bg-tree-crown.jpg') center/cover no-repeat; }
-#part2 { background: url('assets/bg-tree-middle.jpg') center/cover no-repeat; }
-#part3 { background: url('assets/bg-tree-zoomout.jpg') center/cover no-repeat; }
-#part4 { background: url('assets/bg-buried.jpg') center/cover no-repeat; }
-#part5 { background: url('assets/bg-magical-cave.jpg') center/cover no-repeat; }
-#part6 { background: url('assets/bg-cave-floor.jpg') center/cover no-repeat; }
-
-/* botão e pulsação */
-.btn {
-  margin-top: 16px;
-  padding: 12px 24px;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid #8a2be2;
-  border-radius: 24px;
-  color: #8a2be2;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform .3s;
-}
-.btn:active { transform: scale(0.95); }
-.pulse {
-  animation: pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* pétalas: back e front */
-.petal-bg, .petal-fg {
-  position:absolute; top:0; left:0;
-  width:100%; height:100%; pointer-events:none;
-}
-.petal {
-  position:absolute;
-  animation: fall linear infinite;
-  opacity:0.8;
-}
-@keyframes fall {
-  0% { transform: translateY(-20vh) rotate(0deg); opacity:1; }
-  100% { transform: translateY(120vh) rotate(360deg); opacity:0; }
-}
-
-/* Nostalgia */
-.nostalgia1 { background: url('assets/bg-sky.jpg') center/cover no-repeat; }
-.nostalgia2 { background: url('assets/bg-sky-reflection.jpg') center/cover no-repeat; }
-.nostalgia3 { background: url('assets/bg-sky-horizon.jpg') center/cover no-repeat; }
-
-/* modal */
-#proposal-modal {
-  position:fixed; inset:0;
-  background: rgba(0,0,0,0.9);
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; pointer-events:none;
-  transition: opacity .5s;
-  z-index: 20;
-}
-#proposal-modal.show {
-  opacity:1; pointer-events:auto;
-}
-.modal-content {
-  background: rgba(0,0,0,0.7);
-  padding:20px; border-radius:12px;
-  max-width:85%; text-align:center;
-  animation: popIn .4s ease-out;
-}
-@keyframes popIn {
-  0% { transform: scale(0.5); opacity:0; }
-  100% { transform: scale(1); opacity:1; }
-}
-.modal-content button {
-  margin-top:16px;
-  padding:8px 16px;
-  background:#8a2be2;
-  border:none; border-radius:8px;
-  color:#fff; font-size:14px;
-  cursor:pointer;
-}
-
-/* vortex overlay */
-#vortex {
-  position:fixed; inset:0; pointer-events:none; z-index:15;
-  background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
-  animation: vortexAnim .8s forwards;
-}
-@keyframes vortexAnim {
-  0% { transform: scale(0.5) rotate(0deg); opacity:0; }
-  100% { transform: scale(3) rotate(720deg); opacity:1; }
-}
-
+    @media (min-width: 600px) { body { display: none; } }
+    /* reset e base */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      width:100vw; height:100vh;
+      overflow:hidden;
+      font-family: sans-serif;
+      background: #000 url('assets/bg-fixed.jpg') center/cover fixed no-repeat;
+      color: #fff;
+    }
+    /* container scroll-snap */
+    #container {
+      height:100%; overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+    /* painéis flutuantes */
+    .panel {
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 90%;
+      text-align: center;
+      z-index: 10;
+    }
+    /* seções e efeitos de fade */
+    section.snap {
+      position: relative;
+      height:100vh;
+      scroll-snap-align: start;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    section.snap.in-view {
+      opacity: 1;
+    }
+    /* galhos fixos nas bordas */
+    img.branch {
+      position: fixed;
+      z-index: 20;
+      pointer-events: none;
+    }
+    img.branch.left { top: 0; left: 0; }
+    img.branch.right { bottom: 0; right: 0; }
+    /* pétalas: back e front */
+    .petal-bg, .petal-fg {
+      position:absolute; top:0; left:0;
+      width:100%; height:100%; pointer-events:none;
+      z-index: 5;
+    }
+    .petal {
+      position:absolute;
+      animation: fall linear infinite;
+      opacity:0.8;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20vh) rotate(0deg); opacity:1; }
+      100% { transform: translateY(120vh) rotate(360deg); opacity:0; }
+    }
+    /* modal */
+    #proposal-modal {
+      position:fixed; inset:0;
+      background: rgba(0,0,0,0.9);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition: opacity .5s;
+      z-index: 30;
+    }
+    #proposal-modal.show {
+      opacity:1; pointer-events:auto;
+    }
+    .modal-content {
+      background: rgba(0,0,0,0.7);
+      padding:20px; border-radius:12px;
+      max-width:85%; text-align:center;
+      animation: popIn .4s ease-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity:0; }
+      100% { transform: scale(1); opacity:1; }
+    }
+    .modal-content button {
+      margin-top:16px;
+      padding:8px 16px;
+      background:#8a2be2;
+      border:none; border-radius:8px;
+      color:#fff; font-size:14px;
+      cursor:pointer;
+    }
+    /* vortex overlay */
+    #vortex {
+      position:fixed; inset:0; pointer-events:none; z-index:25;
+      background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
+      animation: vortexAnim .8s forwards;
+    }
+    @keyframes vortexAnim {
+      0% { transform: scale(0.5) rotate(0deg); opacity:0; }
+      100% { transform: scale(3) rotate(720deg); opacity:1; }
+    }
   </style>
 </head>
 <body>
-  <div id="container">
+  <!-- galhos fixos -->
+  <img src="assets/branch-left.png" class="branch left" />
+  <img src="assets/branch-right.png" class="branch right" />  <div id="container">
     <!-- pétalas fundo -->
     <div class="petal-bg"></div><!-- 6 telas de introdução -->
-<section id="part1" class="snap">
+<section class="snap" id="part1">
   <div class="panel">
     <p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p>
   </div>
 </section>
-<section id="part2" class="snap">
+<section class="snap" id="part2">
   <div class="panel">
     <p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p>
   </div>
 </section>
-<section id="part3" class="snap">
+<section class="snap" id="part3">
   <div class="panel">
     <p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p>
     <button id="btn3" class="btn pulse">Toque para continuar</button>
   </div>
 </section>
-<section id="part4" class="snap">
+<section class="snap" id="part4">
   <div class="panel">
     <p>A jornada mais linda da vida… começa com um passo inesperado.</p>
   </div>
 </section>
-<section id="part5" class="snap">
+<section class="snap" id="part5">
   <div class="panel">
     <p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p>
   </div>
 </section>
-<section id="part6" class="snap">
+<section class="snap" id="part6">
   <div class="panel">
     <p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p>
     <button id="portalBtn" class="btn pulse">Descobrir o segredo →</button>
@@ -175,6 +153,7 @@ section.snap {
 <section class="snap nostalgia1">
   <div class="panel">
     <p>Cada lembrança, um capítulo do nosso livro.</p>
+    <button id="open-modal" class="btn">Clique para descobrir</button>
   </div>
 </section>
 <section class="snap nostalgia2">
@@ -185,7 +164,6 @@ section.snap {
 <section class="snap nostalgia3">
   <div class="panel">
     <p>Agora, só falta uma pergunta ser respondida.</p>
-    <button id="open-modal" class="btn">Clique para descobrir</button>
   </div>
 </section>
 
@@ -199,12 +177,14 @@ section.snap {
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
-    
-    // gera pétalas em background (pequenas lentas) e foreground (maiores rápidas)
+    const sections = document.querySelectorAll('section.snap');
+
+    // gera pétalas em background e foreground
     function spawnPetal(layer, size, durationRange) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
       p.className = 'petal';
+      p.style.zIndex = layer === bgLayer ? 5 : 20;
       p.style.width = size + 'px';
       p.style.left = Math.random()*100 + 'vw';
       const dur = durationRange[0] + Math.random()*(durationRange[1]-durationRange[0]);
@@ -215,7 +195,15 @@ section.snap {
     setInterval(() => spawnPetal(bgLayer, 20, [8,12]), 400);
     setInterval(() => spawnPetal(fgLayer, 40, [5,8]), 800);
 
-    // botões de navegação
+    // observer para fade in/out
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('in-view', entry.isIntersecting);
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // navegação seções
     document.getElementById('btn3').onclick = () => {
       container.scrollTo({ top: window.innerHeight*3, behavior:'smooth' });
     };
@@ -227,8 +215,6 @@ section.snap {
         vortex.remove();
       }, 800);
     };
-
-    // modal nostalgia final
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
     };
