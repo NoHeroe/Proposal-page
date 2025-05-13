@@ -2,24 +2,182 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
   <title>Pedido de Casamento</title>
-  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* mobile-only */
+    @media (min-width: 600px){ body { display: none; } }
+
+    /* base */
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      width:100vw; height:100vh;
+      overflow:hidden;
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+    }
+    /* container scroll-snap */
+    #container {
+      height:100%; overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    section.snap {
+      position: relative;
+      height:100vh; scroll-snap-align: start;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+      background: #222 url('assets/cerejeira-dark.jpg') no-repeat center/cover;
+    }
+    /* pétalas */
+    .petal {
+      position:absolute; top:-10%;
+      width:30px; pointer-events:none;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-10vh) rotate(0deg); opacity:1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
+    }
+    /* ramos laterais */
+    .branch {
+      position:absolute; width:120px;
+      top:10%; opacity:0.8;
+    }
+    .branch.left  { left:-20px; transform: rotate(-15deg); }
+    .branch.right { right:-20px; transform: rotate(15deg); }
+
+    /* botão misterioso */
+    #mystery-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: rgba(0,0,0,0.6);
+      border: 2px solid #8a2be2;
+      border-radius: 24px;
+      color: #8a2be2;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform .3s, background .3s;
+    }
+    #mystery-btn:active { transform: scale(0.95); background: rgba(0,0,0,0.8); }
+
+    /* nostalgia sections */
+    .nostalgia {
+      background: #111 url('assets/nostalgia-bg.jpg') no-repeat center/cover;
+      filter: sepia(20%);
+    }
+
+    /* modal */
+    #proposal-modal {
+      position:fixed; inset:0;
+      background: rgba(0,0,0,0.9);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition: opacity .5s;
+    }
+    #proposal-modal.show {
+      opacity:1; pointer-events:auto;
+    }
+    .modal-content {
+      background: #222; padding:20px; border-radius:12px;
+      max-width:80%; text-align:center;
+      animation: popIn .4s ease-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity:0; }
+      100% { transform: scale(1); opacity:1; }
+    }
+    .modal-content button {
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: #8a2be2;
+      border:none; border-radius:8px;
+      color:#fff; font-size:14px;
+      cursor:pointer;
+    }
+  </style>
 </head>
 <body>
-  <!-- 3 seções fixas -->
-  <section class="snap" id="part1">
-    <h1>Parte 1: Introdução</h1>
-    <!-- depois você coloca texto/imagens -->
-  </section>
-  <section class="snap" id="part2">
-    <h1>Parte 2: História</h1>
-  </section>
-  <section class="snap" id="part3">
-    <h1>Parte 3: Surpresa</h1>
-    <button id="mystery-btn">Toque aqui →</button>
-  </section>
+  <div id="container">
+    <!-- Intro 1 -->
+    <section class="snap" id="part1">
+      <img src="assets/branch-left.png" class="branch left">
+      <img src="assets/branch-right.png" class="branch right">
+      <h1>Você aceita casar comigo?</h1>
+      <!-- pétalas -->
+    </section>
+    <!-- Intro 2 -->
+    <section class="snap" id="part2">
+      <img src="assets/branch-left.png" class="branch left">
+      <img src="assets/branch-right.png" class="branch right">
+      <p>Cada momento contigo é uma pétala no vento…</p>
+    </section>
+    <!-- Intro 3 com botão -->
+    <section class="snap" id="part3">
+      <img src="assets/branch-left.png" class="branch left">
+      <img src="assets/branch-right.png" class="branch right">
+      <p>Deslize mais uma vez para a surpresa final</p>
+      <button id="mystery-btn">Surpresa →</button>
+    </section>
+    <!-- Nostalgia 1 -->
+    <section class="snap nostalgia" id="nost1">
+      <h2>Nossos Melhores Momentos</h2>
+      <img src="assets/foto1.jpg" style="width:80%;border-radius:8px;">
+    </section>
+    <!-- Nostalgia 2 -->
+    <section class="snap nostalgia" id="nost2">
+      <h2>Lembrou disso?</h2>
+      <img src="assets/foto2.jpg" style="width:80%;border-radius:8px;">
+    </section>
+    <!-- Nostalgia 3 com modal trigger -->
+    <section class="snap nostalgia" id="nost3">
+      <h2>Pronto para mais?</h2>
+      <button id="open-modal">Ver Proposta</button>
+    </section>
+  </div>
 
-  <script src="js/main.js"></script>
+  <!-- Modal de proposta -->
+  <div id="proposal-modal">
+    <div class="modal-content">
+      <h2>Casa comigo, [nome dela]? 💍</h2>
+      <p>Para sempre ao seu lado.</p>
+      <button id="close-modal">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // gera pétalas
+    function spawnPetal(){
+      const p = document.createElement('img');
+      p.src = 'assets/petal.png';
+      p.className = 'petal';
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.animationDuration = (4 + Math.random()*4) + 's';
+      document.body.append(p);
+      setTimeout(()=> p.remove(), 8000);
+    }
+    setInterval(spawnPetal, 300);
+
+    // mystery-btn scroll to nostalgia
+    document.querySelector('#mystery-btn')
+      .addEventListener('click', ()=>{
+        document.getElementById('container')
+          .scrollTo({ top: window.innerHeight*3, behavior:'smooth' });
+      });
+
+    // abre/fecha modal
+    document.querySelector('#open-modal')
+      .addEventListener('click', ()=> {
+        document.getElementById('proposal-modal')
+          .classList.add('show');
+      });
+    document.querySelector('#close-modal')
+      .addEventListener('click', ()=> {
+        document.getElementById('proposal-modal')
+          .classList.remove('show');
+      });
+  </script>
 </body>
 </html>
