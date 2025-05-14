@@ -22,39 +22,33 @@
       scroll-behavior: smooth;
       position: relative;
     }
-    /* painéis flutuantes */
+    /* painéis flutuantes (sem transição) */
     .panel {
-  background: rgba(255, 255, 255, 0.1);  /* vidro translúcido fixo */
-  backdrop-filter: blur(8px);            /* desfoque permanente */
-  width: 90%;                            /* largura responsiva */
-  max-width: 360px;                      /* limite para não esticar demais */
-  padding: 16px 20px;                    /* espaço interno */
-  border-radius: 12px;                   /* cantos arredondados */
-  margin: 0 auto;                        /* centraliza horizontalmente */
-  text-align: center;                    /* alinha texto dentro */
-  /* sem transition para manter opacidade fixa */
-}
-    /* seções e efeitos de fade */
+      background: rgba(255, 255, 255, 0.1);  /* vidro translúcido fixo */
+      backdrop-filter: blur(8px);
+      width: 90%; max-width: 360px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 0 auto;
+      text-align: center;
+      z-index: 10;
+    }
+    /* seções */
     section.snap {
       position: relative;
       height:100vh;
       scroll-snap-align: start;
       display:flex; align-items:center; justify-content:center;
       overflow:hidden;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    section.snap.in-view {
-      opacity: 1;
     }
     /* galhos fixos nas bordas */
     img.branch {
       position: fixed;
       z-index: 20;
       pointer-events: none;
-      width: 180px; /* tamanho ajustado */
+      width: 190px;
     }
-    img.branch.left { top: 0; left: 0; }
+    img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
     /* pétalas: back e front */
     .petal-bg, .petal-fg {
@@ -70,6 +64,22 @@
     @keyframes fall {
       0% { transform: translateY(-20vh) rotate(0deg); opacity:1; }
       100% { transform: translateY(120vh) rotate(360deg); opacity:0; }
+    }
+    /* botões modernos */
+    .btn {
+      background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+      border: none;
+      box-shadow: 0 4px 14px rgba(147, 51, 234, 0.4);
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(147, 51, 234, 0.5);
     }
     /* modal */
     #proposal-modal {
@@ -92,14 +102,6 @@
     @keyframes popIn {
       0% { transform: scale(0.5); opacity:0; }
       100% { transform: scale(1); opacity:1; }
-    }
-    .modal-content button {
-      margin-top:16px;
-      padding:8px 16px;
-      background:#8a2be2;
-      border:none; border-radius:8px;
-      color:#fff; font-size:14px;
-      cursor:pointer;
     }
     /* vortex overlay */
     #vortex {
@@ -132,7 +134,7 @@
 <section class="snap" id="part3">
   <div class="panel">
     <p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p>
-    <button id="btn3" class="btn pulse">Toque para continuar</button>
+    <button id="btn3" class="btn">Toque para continuar</button>
   </div>
 </section>
 <section class="snap" id="part4">
@@ -148,20 +150,20 @@
 <section class="snap" id="part6">
   <div class="panel">
     <p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p>
-    <button id="portalBtn" class="btn pulse">Descobrir o segredo →</button>
+    <button id="portalBtn" class="btn">Descobrir o segredo →</button>
   </div>
 </section>
 
 <!-- 3 telas nostalgia -->
 <section class="snap nostalgia1">
   <div class="panel">
-    <img src="assets/memoria1.jpg" alt="Momento especial" style="width:100%; border-radius:8px; margin-bottom:12px;">
+    <img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%; border-radius:8px; margin-bottom:12px;" />
     <p>Cada lembrança, um capítulo do nosso livro.</p>
-    <!-- sem botão aqui -->
   </div>
 </section>
 <section class="snap nostalgia2">
   <div class="panel">
+    <img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%; border-radius:8px; margin-bottom:12px;" />
     <p>Cada sorriso, cada gesto… guardados para sempre.</p>
   </div>
 </section>
@@ -174,25 +176,25 @@
 
   </div>  <!-- pétalas frente -->  <div class="petal-fg"></div>  <!-- Modal de proposta -->  <div id="proposal-modal">
     <div class="modal-content">
-      <h2> Carolina Mariko, você aceita casar comigo? 💍</h2>
-      <p>Prometo ser seu companheiro, sua força e seu abrigo… para sempre.</p>
-      <button id="close-modal">Fechar</button>
+      <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;">
+        <button id="btn-yes" class="btn">Sim</button>
+        <button id="btn-no"  class="btn">Não</button>
+      </div>
     </div>
   </div>  <script>
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
-    const sections = document.querySelectorAll('section.snap');
 
-    // gera pétalas em background e foreground
     function spawnPetal(layer, size, durationRange) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
       p.className = 'petal';
       p.style.zIndex = layer === bgLayer ? 5 : 20;
       p.style.width = size + 'px';
-      p.style.left = Math.random()*100 + 'vw';
-      const dur = durationRange[0] + Math.random()*(durationRange[1]-durationRange[0]);
+      p.style.left = Math.random() * 100 + 'vw';
+      const dur = durationRange[0] + Math.random() * (durationRange[1] - durationRange[0]);
       p.style.animationDuration = dur + 's';
       layer.append(p);
       setTimeout(() => p.remove(), dur * 1000);
@@ -200,39 +202,22 @@
     setInterval(() => spawnPetal(bgLayer, 20, [8,12]), 400);
     setInterval(() => spawnPetal(fgLayer, 40, [5,8]), 800);
 
-    // observer para fade in/out
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        entry.target.classList.toggle('in-view', entry.isIntersecting);
-      });
-    }, { threshold: 0.5 });
-    sections.forEach(sec => observer.observe(sec));
-
-    // navegação seções
     document.getElementById('btn3').onclick = () => {
-      container.scrollTo({ top: window.innerHeight*3, behavior:'smooth' });
+      container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
     };
     document.getElementById('portalBtn').onclick = () => {
-      const vortex = document.createElement('div'); vortex.id = 'vortex';
-      document.body.append(vortex);
-      setTimeout(() => {
-        container.scrollTo({ top: window.innerHeight*6, behavior:'smooth' });
-        vortex.remove();
-      }, 800);
+      const vx = document.createElement('div'); vx.id = 'vortex'; document.body.append(vx);
+      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
+      setTimeout(() => vx.remove(), 1200);
     };
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
     };
-    document.getElementById('close-modal').onclick = () => {
-      document.getElementById('proposal-modal').classList.remove('show');
+    document.getElementById('btn-yes').onclick = () => {
+      alert('💖 Ela disse SIM! 💖');
     };
-document.getElementById('btn-yes').onclick = () => {
-  alert('💖 Ela disse SIM! 💖');
-  // aqui você pode redirecionar, tocar som, etc.
-};
-document.getElementById('btn-no').onclick = () => {
-  // talvez dar um replay ou mensagem engraçada
-  alert('Ops… talvez ela precise de um tempinho. 😉');
-};
+    document.getElementById('btn-no').onclick = () => {
+      alert('😉 Talvez ela precise de um tempinho.');
+    };
   </script></body>
 </html>
