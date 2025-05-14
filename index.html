@@ -24,9 +24,15 @@
     }
     /* painéis flutuantes */
     .panel {
-  background: rgba(255,255,255,0.1);   /* vidro translúcido */
-  backdrop-filter: blur(10px);          /* desfoque */
-  transition: background 0.3s ease;     /* suave ao tocar */
+  background: rgba(255, 255, 255, 0.1);  /* vidro translúcido fixo */
+  backdrop-filter: blur(8px);            /* desfoque permanente */
+  width: 90%;                            /* largura responsiva */
+  max-width: 360px;                      /* limite para não esticar demais */
+  padding: 16px 20px;                    /* espaço interno */
+  border-radius: 12px;                   /* cantos arredondados */
+  margin: 0 auto;                        /* centraliza horizontalmente */
+  text-align: center;                    /* alinha texto dentro */
+  /* sem transition para manter opacidade fixa */
 }
     /* seções e efeitos de fade */
     section.snap {
