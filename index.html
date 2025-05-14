@@ -51,11 +51,17 @@
     img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
     /* petals layers */
-    .petal-bg, .petal-fg {
-      position:absolute; top:0; left:0;
-      width:100%; height:100%; pointer-events:none;
-      z-index: 5;
-    }
+    .petal-bg {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%; pointer-events:none;
+  z-index: 5;
+}
+
+.petal-fg {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%; pointer-events:none;
+  z-index: 20;
+}
     .petal {
       position:absolute;
       animation: fall linear infinite;
