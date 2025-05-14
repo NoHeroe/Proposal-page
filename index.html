@@ -105,35 +105,31 @@
     }
     .modal-content::before {
       content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 30% 30%, rgba(147,51,234,0.3), transparent 70%);
-      animation: pulseBg 4s ease-in-out infinite alternate;
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(147,51,234,0.3), transparent 70%);
+      animation: pulseBg 3s ease-in-out infinite alternate;
       z-index: -1;
     }
     @keyframes pulseBg {
-      0%   { transform: scale(1);  opacity: 0.4; }
-      100% { transform: scale(1.4); opacity: 0.8; }
+      0%   { transform: scale(1);   opacity: 0.4; }
+      100% { transform: scale(1.3); opacity: 0.8; }
     }
     @keyframes popIn {
       0% { transform: scale(0.5); opacity:0; }
-      100% { transform: scale(1); opacity:1; }
+      100% { transform: scale(1);   opacity:1; }
     }
     /* vortex overlay */
     #vortex {
       position: fixed; inset: 0;
-      pointer-events: none; z-index: 25;
+      pointer-events: none;
+      z-index: 25;
       background: transparent;
     }
     #vortex::before {
       content: '';
       position: absolute; inset: 0;
       background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
-      animation: swirlAnim 0.8s ease-in-out forwards;
-    }
-    @keyframes swirlAnim {
-      0% { transform: scale(0.5) rotate(0deg); opacity:1; }
-      100% { transform: scale(3) rotate(720deg); opacity:0; }
+      /* swirl anim via JS animate() */
     }
   </style>
 </head>
@@ -141,120 +137,76 @@
   <!-- galhos fixos -->
   <img src="assets/branch-left.png" class="branch left" />
   <img src="assets/branch-right.png" class="branch right" />  <div id="container">
-    <!-- pétalas fundo -->
-    <div class="petal-bg"></div><!-- 6 telas de introdução -->
-<section class="snap" id="part1">
-  <div class="panel">
-    <p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p>
-  </div>
-</section>
-<section class="snap" id="part2">
-  <div class="panel">
-    <p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p>
-  </div>
-</section>
-<section class="snap" id="part3">
-  <div class="panel">
-    <p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p>
-    <button id="btn3" class="btn">Toque para continuar</button>
-  </div>
-</section>
-<section class="snap" id="part4">
-  <div class="panel">
-    <p>A jornada mais linda da vida… começa com um passo inesperado.</p>
-  </div>
-</section>
-<section class="snap" id="part5">
-  <div class="panel">
-    <p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p>
-  </div>
-</section>
-<section class="snap" id="part6">
-  <div class="panel">
-    <p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p>
-    <button id="portalBtn" class="btn">Descobrir o segredo →</button>
-  </div>
-</section>
+    <div class="petal-bg"></div><!-- introdução -->
+<section class="snap" id="part1"><div class="panel"><p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p></div></section>
+<section class="snap" id="part2"><div class="panel"><p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p></div></section>
+<section class="snap" id="part3"><div class="panel"><p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p><button id="btn3" class="btn">Toque para continuar</button></div></section>
+<section class="snap" id="part4"><div class="panel"><p>A jornada mais linda da vida… começa com um passo inesperado.</p></div></section>
+<section class="snap" id="part5"><div class="panel"><p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p></div></section>
+<section class="snap" id="part6"><div class="panel"><p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p><button id="portalBtn" class="btn">Descobrir o segredo →</button></div></section>
 
-<!-- 3 telas nostalgia -->
-<section class="snap nostalgia1">
-  <div class="panel">
-    <img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%; border-radius:8px; margin-bottom:12px;" />
-    <p>Cada lembrança, um capítulo do nosso livro.</p>
-  </div>
-</section>
-<section class="snap nostalgia2">
-  <div class="panel">
-    <img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%; border-radius:8px; margin-bottom:12px;" />
-    <p>Cada sorriso, cada gesto… guardados para sempre.</p>
-  </div>
-</section>
-<section class="snap nostalgia3">
-  <div class="panel">
-    <p>Agora, só falta uma pergunta ser respondida.</p>
-    <button id="open-modal" class="btn">Clique para descobrir</button>
-  </div>
-</section>
+<!-- nostalgia -->
+<section class="snap nostalgia1"><div class="panel"><img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%; border-radius:8px; margin-bottom:12px;" /><p>Cada lembrança, um capítulo do nosso livro.</p></div></section>
+<section class="snap nostalgia2"><div class="panel"><img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%; border-radius:8px; margin-bottom:12px;" /><p>Cada sorriso, cada gesto… guardados para sempre.</p></div></section>
+<section class="snap nostalgia3"><div class="panel"><p>Agora, só falta uma pergunta ser respondida.</p><button id="open-modal" class="btn">Clique para descobrir</button></div></section>
 
-  </div>  <!-- pétalas frente -->  <div class="petal-fg"></div>  <!-- Modal de proposta -->  <div id="proposal-modal">
+  </div>  <div class="petal-fg"></div>  <div id="proposal-modal">
     <div class="modal-content">
       <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
-      <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;">
-        <button id="btn-yes" class="btn">Sim</button>
-        <button id="btn-no"  class="btn">Não</button>
-      </div>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;"><button id="btn-yes" class="btn">Sim</button><button id="btn-no" class="btn">Não</button></div>
     </div>
   </div>  <script>
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
 
-    function spawnPetal(layer, size, durationRange) {
+    function spawnPetal(layer, size, duration) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
       p.className = 'petal';
-      p.style.zIndex = layer === bgLayer ? 5 : 20;
-      p.style.width = size + 'px';
-      p.style.left = Math.random() * 100 + 'vw';
-      const dur = durationRange[0] + Math.random() * (durationRange[1] - durationRange[0]);
-      p.style.animationDuration = dur + 's';
+      p.style.zIndex = layer===bgLayer?5:20;
+      p.style.width = size+'px';
+      p.style.left = Math.random()*100+'vw';
+      p.style.animationDuration = duration+'s';
       layer.append(p);
-      setTimeout(() => p.remove(), dur * 1000);
+      setTimeout(()=>p.remove(), duration*1000);
     }
-    setInterval(() => spawnPetal(bgLayer, 20, [8,12]), 400);
-    setInterval(() => spawnPetal(fgLayer, 40, [5,8]), 800);
+    setInterval(()=>spawnPetal(bgLayer,20,8+Math.random()*4),500);
+    setInterval(()=>spawnPetal(fgLayer,40,5+Math.random()*3),800);
 
-    document.getElementById('btn3').onclick = () => {
-      container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
+    document.getElementById('btn3').onclick = ()=>{
+      container.scrollTo({top:window.innerHeight*3,behavior:'smooth'});
     };
-    document.getElementById('portalBtn').onclick = () => {
-      const vx = document.createElement('div'); vx.id = 'vortex'; document.body.append(vx);
-      // pétalas em turbilhão
-      for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-          const petal = document.createElement('img');
-          petal.src = 'assets/petal.png';
-          petal.className = 'petal';
-          petal.style.position = 'fixed';
-          petal.style.top = Math.random() * 100 + 'vh';
-          petal.style.left = Math.random() * 100 + 'vw';
-          petal.style.width = (20 + Math.random() * 20) + 'px';
-          petal.style.animation = 'fall 4s linear forwards';
-          document.body.append(petal);
-          setTimeout(() => petal.remove(), 4000);
-        }, i * 80);
+
+    document.getElementById('portalBtn').onclick = ()=>{
+      // cria swirl overlay
+      const swirl = document.createElement('div'); swirl.id='vortex'; document.body.append(swirl);
+      // anima swirl via Web Animations API
+      swirl.animate([
+        {transform:'scale(0.5) rotate(0deg)',opacity:1},
+        {transform:'scale(3) rotate(720deg)',opacity:0}
+      ],{duration:3000,fill:'forwards'});
+      // pétalas turbilhão
+      for(let i=0;i<50;i++){
+        setTimeout(()=>{
+          const pet=document.createElement('img');
+          pet.src='assets/petal.png';pet.className='petal';
+          pet.style.position='fixed';
+          pet.style.top=Math.random()*100+'vh';pet.style.left=Math.random()*100+'vw';
+          pet.style.width=(15+Math.random()*25)+'px';
+          pet.style.animation='fall 3s linear forwards';
+          document.body.append(pet);
+          setTimeout(()=>pet.remove(),3000);
+        },i*60);
       }
-      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
-      setTimeout(() => vx.remove(), 4000);
+      setTimeout(()=>container.scrollTo({top:window.innerHeight*6,behavior:'smooth'}),500);
+      setTimeout(()=>swirl.remove(),3000);
     };
-    document.getElementById('open-modal').onclick = () => {
+
+    document.getElementById('open-modal').onclick = ()=>{
       document.getElementById('proposal-modal').classList.add('show');
     };
-    document.getElementById('btn-yes').onclick = () => {
-      alert('💖 Ela disse SIM! 💖');
-    };
-    document.getElementById('btn-no').onclick = () => {
-      alert('😉 Talvez ela precise de um tempinho.');
-    };
+    document.getElementById('btn-yes').onclick = ()=>alert('💖 Ela disse SIM! 💖');
+    document.getElementById('btn-no').onclick = ()=>alert('😉 Talvez ela precise de um tempinho.');
   </script></body>
 </html>
