@@ -6,23 +6,23 @@
   <style>
     /* mobile-only */
     @media (min-width: 600px) { body { display: none; } }
-    /* reset e base */
+    /* reset */
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       width:100vw; height:100vh;
       overflow:hidden;
-      font-family: sans-serif;
+      font-family:sans-serif;
       background: #000 url('assets/bg-fixed.jpg') center/cover fixed no-repeat;
       color: #fff;
     }
-    /* container scroll-snap */
+    /* scroll-snap container */
     #container {
       height:100%; overflow-y: scroll;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       position: relative;
     }
-    /* painéis de vidro */
+    /* glass panels */
     .panel {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
@@ -33,7 +33,7 @@
       text-align: center;
       z-index: 10;
     }
-    /* seções */
+    /* sections */
     section.snap {
       position: relative;
       height:100vh;
@@ -41,7 +41,7 @@
       display:flex; align-items:center; justify-content:center;
       overflow:hidden;
     }
-    /* galhos fixos nas bordas */
+    /* fixed branches */
     img.branch {
       position: fixed;
       z-index: 20;
@@ -50,7 +50,7 @@
     }
     img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
-    /* camada de pétalas */
+    /* petals layers */
     .petal-bg, .petal-fg {
       position:absolute; top:0; left:0;
       width:100%; height:100%; pointer-events:none;
@@ -65,7 +65,7 @@
       0% { transform: translateY(-20vh) rotate(0deg); opacity:1; }
       100% { transform: translateY(120vh) rotate(360deg); opacity:0; }
     }
-    /* botões modernos */
+    /* modern buttons */
     .btn {
       background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
       border: none;
@@ -81,9 +81,9 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(147, 51, 234, 0.5);
     }
-    /* modal */
+    /* modal overlay */
     #proposal-modal {
-      position:fixed; inset:0;
+      position: fixed; inset:0;
       background: rgba(0,0,0,0.9);
       display:flex; align-items:center; justify-content:center;
       opacity:0; pointer-events:none;
@@ -93,30 +93,27 @@
     #proposal-modal.show {
       opacity:1; pointer-events:auto;
     }
+    /* modal content with gradient animation */
     .modal-content {
       position: relative;
       overflow: hidden;
-      background: rgba(0,0,0,0.7);
+      background: linear-gradient(45deg, rgba(147,43,226,0.7), rgba(226,43,147,0.7));
+      background-size: 200% 200%;
+      animation: modalGradient 5s ease infinite, popIn .4s ease-out;
       padding: 20px;
       border-radius: 12px;
       max-width: 85%;
       text-align: center;
-      animation: popIn .4s ease-out;
+      z-index: 31;
     }
-    .modal-content::before {
-      content: "";
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(147,51,234,0.3), transparent 70%);
-      animation: pulseBg 3s ease-in-out infinite alternate;
-      z-index: -1;
-    }
-    @keyframes pulseBg {
-      0%   { transform: scale(1);   opacity: 0.4; }
-      100% { transform: scale(1.3); opacity: 0.8; }
+    @keyframes modalGradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     @keyframes popIn {
-      0% { transform: scale(0.5); opacity:0; }
-      100% { transform: scale(1);   opacity:1; }
+      0%   { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
     }
     /* vortex overlay */
     #vortex {
@@ -129,15 +126,15 @@
       content: '';
       position: absolute; inset: 0;
       background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
-      /* swirl anim via JS animate() */
     }
   </style>
 </head>
 <body>
-  <!-- galhos fixos -->
+  <!-- fixed branches -->
   <img src="assets/branch-left.png" class="branch left" />
   <img src="assets/branch-right.png" class="branch right" />  <div id="container">
-    <div class="petal-bg"></div><!-- introdução -->
+    <!-- background petals -->
+    <div class="petal-bg"></div><!-- 6 intro sections -->
 <section class="snap" id="part1"><div class="panel"><p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p></div></section>
 <section class="snap" id="part2"><div class="panel"><p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p></div></section>
 <section class="snap" id="part3"><div class="panel"><p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p><button id="btn3" class="btn">Toque para continuar</button></div></section>
@@ -145,68 +142,94 @@
 <section class="snap" id="part5"><div class="panel"><p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p></div></section>
 <section class="snap" id="part6"><div class="panel"><p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p><button id="portalBtn" class="btn">Descobrir o segredo →</button></div></section>
 
-<!-- nostalgia -->
-<section class="snap nostalgia1"><div class="panel"><img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%; border-radius:8px; margin-bottom:12px;" /><p>Cada lembrança, um capítulo do nosso livro.</p></div></section>
-<section class="snap nostalgia2"><div class="panel"><img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%; border-radius:8px; margin-bottom:12px;" /><p>Cada sorriso, cada gesto… guardados para sempre.</p></div></section>
+<!-- 3 nostalgia sections -->
+<section class="snap nostalgia1"><div class="panel"><img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%;border-radius:8px;margin-bottom:12px;"/><p>Cada lembrança, um capítulo do nosso livro.</p></div></section>
+<section class="snap nostalgia2"><div class="panel"><img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%;border-radius:8px;margin-bottom:12px;"/><p>Cada sorriso, cada gesto… guardados para sempre.</p></div></section>
 <section class="snap nostalgia3"><div class="panel"><p>Agora, só falta uma pergunta ser respondida.</p><button id="open-modal" class="btn">Clique para descobrir</button></div></section>
 
-  </div>  <div class="petal-fg"></div>  <div id="proposal-modal">
+  </div>  <!-- foreground petals -->  <div class="petal-fg"></div>  <!-- proposal modal -->  <div id="proposal-modal">
     <div class="modal-content">
       <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
-      <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;"><button id="btn-yes" class="btn">Sim</button><button id="btn-no" class="btn">Não</button></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;">
+        <button id="btn-yes" class="btn">Sim</button>
+        <button id="btn-no" class="btn">Não</button>
+      </div>
     </div>
   </div>  <script>
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
 
+    // spawn petals continuously
     function spawnPetal(layer, size, duration) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
       p.className = 'petal';
-      p.style.zIndex = layer===bgLayer?5:20;
-      p.style.width = size+'px';
-      p.style.left = Math.random()*100+'vw';
-      p.style.animationDuration = duration+'s';
+      p.style.zIndex = layer === bgLayer ? 5 : 20;
+      p.style.width = size + 'px';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = duration + 's';
       layer.append(p);
-      setTimeout(()=>p.remove(), duration*1000);
+      setTimeout(() => p.remove(), duration * 1000);
     }
-    setInterval(()=>spawnPetal(bgLayer,20,8+Math.random()*4),500);
-    setInterval(()=>spawnPetal(fgLayer,40,5+Math.random()*3),800);
+    setInterval(() => spawnPetal(bgLayer, 20, 8 + Math.random() * 4), 400);
+    setInterval(() => spawnPetal(fgLayer, 40, 5 + Math.random() * 3), 800);
 
-    document.getElementById('btn3').onclick = ()=>{
-      container.scrollTo({top:window.innerHeight*3,behavior:'smooth'});
-    };
+    // navigation
+    document.getElementById('btn3').onclick = () => container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
 
-    document.getElementById('portalBtn').onclick = ()=>{
-      // cria swirl overlay
-      const swirl = document.createElement('div'); swirl.id='vortex'; document.body.append(swirl);
-      // anima swirl via Web Animations API
+    document.getElementById('portalBtn').onclick = () => {
+      // swirl overlay
+      const swirl = document.createElement('div');
+      swirl.id = 'vortex';
+      document.body.append(swirl);
       swirl.animate([
-        {transform:'scale(0.5) rotate(0deg)',opacity:1},
-        {transform:'scale(3) rotate(720deg)',opacity:0}
-      ],{duration:3000,fill:'forwards'});
-      // pétalas turbilhão
-      for(let i=0;i<50;i++){
-        setTimeout(()=>{
-          const pet=document.createElement('img');
-          pet.src='assets/petal.png';pet.className='petal';
-          pet.style.position='fixed';
-          pet.style.top=Math.random()*100+'vh';pet.style.left=Math.random()*100+'vw';
-          pet.style.width=(15+Math.random()*25)+'px';
-          pet.style.animation='fall 3s linear forwards';
+        { transform: 'scale(0.5) rotate(0deg)', opacity: 1 },
+        { transform: 'scale(3) rotate(720deg)', opacity: 0 }
+      ], { duration: 3000, easing: 'linear', fill: 'forwards' });
+
+      // whirlwind petals
+      for (let i = 0; i < 400; i++) {
+        setTimeout(() => {
+          const pet = document.createElement('img');
+          pet.src = 'assets/petal.png';
+          pet.className = 'petal';
+          pet.style.position = 'fixed';
+          pet.style.top = Math.random() * 100 + 'vh';
+          pet.style.left = Math.random() * 100 + 'vw';
+          pet.style.width = (10 + Math.random() * 30) + 'px';
+          pet.style.animation = 'fall 3s linear forwards';
           document.body.append(pet);
-          setTimeout(()=>pet.remove(),3000);
-        },i*60);
+          setTimeout(() => pet.remove(), 3000);
+        }, i * 20);
       }
-      setTimeout(()=>container.scrollTo({top:window.innerHeight*6,behavior:'smooth'}),500);
-      setTimeout(()=>swirl.remove(),3000);
+
+      // scroll after delay
+      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
+      setTimeout(() => swirl.remove(), 3000);
     };
 
-    document.getElementById('open-modal').onclick = ()=>{
+    // open modal with inner petals
+    document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
+      const modal = document.querySelector('.modal-content');
+      for (let i = 0; i < 200; i++) {
+        setTimeout(() => {
+          const p = document.createElement('img');
+          p.src = 'assets/petal.png';
+          p.className = 'petal';
+          p.style.position = 'fixed';
+          const r = modal.getBoundingClientRect();
+          p.style.top = (r.top + Math.random() * r.height) + 'px';
+          p.style.left = (r.left + Math.random() * r.width) + 'px';
+          p.style.width = (10 + Math.random() * 20) + 'px';
+          p.style.animation = 'fall 2s linear forwards';
+          document.body.append(p);
+          setTimeout(() => p.remove(), 2000);
+        }, Math.random() * 2000);
+      }
     };
-    document.getElementById('btn-yes').onclick = ()=>alert('💖 Ela disse SIM! 💖');
-    document.getElementById('btn-no').onclick = ()=>alert('😉 Talvez ela precise de um tempinho.');
+    document.getElementById('btn-yes').onclick = () => alert('💖 Ela disse SIM! 💖');
+    document.getElementById('btn-no').onclick = () => alert('😉 Talvez ela precise de um tempinho.');
   </script></body>
 </html>
