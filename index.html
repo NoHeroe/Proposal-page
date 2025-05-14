@@ -24,7 +24,7 @@
     }
     /* painéis flutuantes (sem transição) */
     .panel {
-      background: rgba(255, 255, 255, 0.1);  /* vidro translúcido fixo */
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
       width: 90%; max-width: 360px;
       padding: 16px 20px;
@@ -46,7 +46,7 @@
       position: fixed;
       z-index: 20;
       pointer-events: none;
-      width: 190px;
+      width: 200px;
     }
     img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
@@ -94,55 +94,54 @@
       opacity:1; pointer-events:auto;
     }
     .modal-content {
+      position: relative;
+      overflow: hidden;
       background: rgba(0,0,0,0.7);
-      padding:20px; border-radius:12px;
-      max-width:85%; text-align:center;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 85%;
+      text-align: center;
       animation: popIn .4s ease-out;
     }
-/* fundo animado por trás do modal */
-.modal-content {
-  position: relative;
-  overflow: hidden;
-}
-.modal-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(147,51,234,0.4), transparent 70%);
-  animation: pulseBg 4s ease-in-out infinite alternate;
-  z-index: -1;
-}
-@keyframes pulseBg {
-  0%   { transform: scale(1);  opacity: 0.5; }
-  100% { transform: scale(1.2); opacity: 0.8; }
-}
+    .modal-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(147,51,234,0.4), transparent 70%);
+      animation: pulseBg 4s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    @keyframes pulseBg {
+      0%   { transform: scale(1);  opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 0.8; }
+    }
     @keyframes popIn {
       0% { transform: scale(0.5); opacity:0; }
       100% { transform: scale(1); opacity:1; }
     }
     /* vortex overlay */
     #vortex {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 25;
-  background: transparent;
-}
-#vortex::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
-  animation: swirlAnim 0.8s ease-in-out forwards;
-}
-@keyframes swirlAnim {
-  0% {
-    transform: scale(0.5) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(3) rotate(720deg);
-    opacity: 0;
-  }
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 25;
+      background: transparent;
+    }
+    #vortex::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
+      animation: swirlAnim 0.8s ease-in-out forwards;
+    }
+    @keyframes swirlAnim {
+      0% {
+        transform: scale(0.5) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -207,6 +206,7 @@
 
   </div>  <!-- pétalas frente -->  <div class="petal-fg"></div>  <!-- Modal de proposta -->  <div id="proposal-modal">
     <div class="modal-content">
+      <div class="modal-bg"></div>
       <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
       <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;">
         <button id="btn-yes" class="btn">Sim</button>
@@ -237,18 +237,10 @@
       container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
     };
     document.getElementById('portalBtn').onclick = () => {
-  const vx = document.createElement('div');
-  vx.id = 'vortex';
-  document.body.append(vx);
-
-  // depois de 200ms, scroll e mantém o vortex visível
-  setTimeout(() => {
-    container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' });
-  }, 200);
-
-  // remove após 1s, garantindo animação completa
-  setTimeout(() => vx.remove(), 1000);
-};
+      const vx = document.createElement('div'); vx.id = 'vortex'; document.body.append(vx);
+      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 200);
+      setTimeout(() => vx.remove(), 1000);
+    };
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
     };
