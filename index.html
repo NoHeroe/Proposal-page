@@ -24,14 +24,14 @@
     }
     /* painéis flutuantes */
     .panel {
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      padding: 20px;
-      border-radius: 16px;
-      max-width: 90%;
-      text-align: center;
-      z-index: 10;
-    }
+  background: rgba(255,255,255,0.1);   /* branco translúcido */
+  backdrop-filter: blur(10px);
+  transition: background .3s ease;
+}
+/* opcional: ao passar o dedo (hover/touch) volta a um pouco mais opaco */
+.panel:active {
+  background: rgba(255,255,255,0.2);
+}
     /* seções e efeitos de fade */
     section.snap {
       position: relative;
