@@ -24,13 +24,9 @@
     }
     /* painéis flutuantes */
     .panel {
-  background: rgba(255,255,255,0.1);   /* branco translúcido */
-  backdrop-filter: blur(10px);
-  transition: background .3s ease;
-}
-/* opcional: ao passar o dedo (hover/touch) volta a um pouco mais opaco */
-.panel:active {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);   /* vidro translúcido */
+  backdrop-filter: blur(10px);          /* desfoque */
+  transition: background 0.3s ease;     /* suave ao tocar */
 }
     /* seções e efeitos de fade */
     section.snap {
