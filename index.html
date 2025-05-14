@@ -121,13 +121,28 @@
     }
     /* vortex overlay */
     #vortex {
-      position:fixed; inset:0; pointer-events:none; z-index:25;
-      background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
-      animation: vortexAnim .8s forwards;
-    }
-    @keyframes vortexAnim {
-      0% { transform: scale(0.5) rotate(0deg); opacity:0; }
-      100% { transform: scale(3) rotate(720deg); opacity:1; }
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  background: transparent;
+}
+#vortex::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
+  animation: swirlAnim 0.8s ease-in-out forwards;
+}
+@keyframes swirlAnim {
+  0% {
+    transform: scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) rotate(720deg);
+    opacity: 0;
+  }
     }
   </style>
 </head>
@@ -222,10 +237,18 @@
       container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
     };
     document.getElementById('portalBtn').onclick = () => {
-      const vx = document.createElement('div'); vx.id = 'vortex'; document.body.append(vx);
-      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
-      setTimeout(() => vx.remove(), 1200);
-    };
+  const vx = document.createElement('div');
+  vx.id = 'vortex';
+  document.body.append(vx);
+
+  // depois de 200ms, scroll e mantém o vortex visível
+  setTimeout(() => {
+    container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' });
+  }, 200);
+
+  // remove após 1s, garantindo animação completa
+  setTimeout(() => vx.remove(), 1000);
+};
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
     };
