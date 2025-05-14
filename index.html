@@ -22,7 +22,7 @@
       scroll-behavior: smooth;
       position: relative;
     }
-    /* painéis flutuantes (sem transição) */
+    /* painéis de vidro */
     .panel {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
@@ -50,7 +50,7 @@
     }
     img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
-    /* pétalas: back e front */
+    /* camada de pétalas */
     .petal-bg, .petal-fg {
       position:absolute; top:0; left:0;
       width:100%; height:100%; pointer-events:none;
@@ -93,54 +93,47 @@
     #proposal-modal.show {
       opacity:1; pointer-events:auto;
     }
-   .modal-content {
-  position: relative;
-  overflow: hidden;
-  background: rgba(0,0,0,0.7);
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 85%;
-  text-align: center;
-  animation: popIn .4s ease-out;
-}
-
-.modal-content::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(147,51,234,0.3), transparent 70%);
-  animation: pulseBg 4s ease-in-out infinite alternate;
-  z-index: -1;
-}
-
-@keyframes pulseBg {
-  0%   { transform: scale(1);  opacity: 0.4; }
-  100% { transform: scale(1.4); opacity: 0.8; }
-}
+    .modal-content {
+      position: relative;
+      overflow: hidden;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 85%;
+      text-align: center;
+      animation: popIn .4s ease-out;
+    }
+    .modal-content::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(147,51,234,0.3), transparent 70%);
+      animation: pulseBg 4s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    @keyframes pulseBg {
+      0%   { transform: scale(1);  opacity: 0.4; }
+      100% { transform: scale(1.4); opacity: 0.8; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity:0; }
+      100% { transform: scale(1); opacity:1; }
+    }
     /* vortex overlay */
     #vortex {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 25;
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 25;
       background: transparent;
     }
     #vortex::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
       animation: swirlAnim 0.8s ease-in-out forwards;
     }
     @keyframes swirlAnim {
-      0% {
-        transform: scale(0.5) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(3) rotate(720deg);
-        opacity: 0;
-      }
+      0% { transform: scale(0.5) rotate(0deg); opacity:1; }
+      100% { transform: scale(3) rotate(720deg); opacity:0; }
     }
   </style>
 </head>
@@ -205,7 +198,6 @@
 
   </div>  <!-- pétalas frente -->  <div class="petal-fg"></div>  <!-- Modal de proposta -->  <div id="proposal-modal">
     <div class="modal-content">
-      <div class="modal-bg"></div>
       <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
       <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;">
         <button id="btn-yes" class="btn">Sim</button>
@@ -237,8 +229,23 @@
     };
     document.getElementById('portalBtn').onclick = () => {
       const vx = document.createElement('div'); vx.id = 'vortex'; document.body.append(vx);
-      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 200);
-      setTimeout(() => vx.remove(), 1000);
+      // pétalas em turbilhão
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const petal = document.createElement('img');
+          petal.src = 'assets/petal.png';
+          petal.className = 'petal';
+          petal.style.position = 'fixed';
+          petal.style.top = Math.random() * 100 + 'vh';
+          petal.style.left = Math.random() * 100 + 'vw';
+          petal.style.width = (20 + Math.random() * 20) + 'px';
+          petal.style.animation = 'fall 4s linear forwards';
+          document.body.append(petal);
+          setTimeout(() => petal.remove(), 4000);
+        }, i * 80);
+      }
+      setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
+      setTimeout(() => vx.remove(), 4000);
     };
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
