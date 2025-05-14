@@ -52,16 +52,15 @@
     img.branch.right { bottom: 0; right: 0; }
     /* petals layers */
     .petal-bg {
-  position:absolute; top:0; left:0;
-  width:100%; height:100%; pointer-events:none;
-  z-index: 5;
-}
-
-.petal-fg {
-  position:absolute; top:0; left:0;
-  width:100%; height:100%; pointer-events:none;
-  z-index: 20;
-}
+      position:absolute; top:0; left:0;
+      width:100%; height:100%; pointer-events:none;
+      z-index: 5;
+    }
+    .petal-fg {
+      position:absolute; top:0; left:0;
+      width:100%; height:100%; pointer-events:none;
+      z-index: 20;
+    }
     .petal {
       position:absolute;
       animation: fall linear infinite;
@@ -82,6 +81,7 @@
       border-radius: 24px;
       cursor: pointer;
       transition: transform .2s, box-shadow .2s;
+      z-index: 11;
     }
     .btn:hover {
       transform: translateY(-2px);
@@ -99,7 +99,20 @@
     #proposal-modal.show {
       opacity:1; pointer-events:auto;
     }
-    /* modal content with gradient animation */
+    /* stars behind modal */
+    #proposal-modal::before {
+      content: '';
+      position: absolute; inset:0;
+      background: url('assets/stars.png') center/cover;
+      opacity: 0.3;
+      animation: starTwinkle 4s ease-in-out infinite alternate;
+      z-index: 29;
+    }
+    @keyframes starTwinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 0.5; }
+    }
+    /* modal content with gradient and glow */
     .modal-content {
       position: relative;
       overflow: hidden;
@@ -111,6 +124,7 @@
       max-width: 85%;
       text-align: center;
       z-index: 31;
+      box-shadow: 0 0 30px rgba(147,51,234,0.9), 0 0 60px rgba(226,43,147,0.7);
     }
     @keyframes modalGradient {
       0%   { background-position: 0% 50%; }
@@ -139,8 +153,8 @@
   <!-- fixed branches -->
   <img src="assets/branch-left.png" class="branch left" />
   <img src="assets/branch-right.png" class="branch right" />  <div id="container">
-    <!-- background petals -->
-    <div class="petal-bg"></div><!-- 6 intro sections -->
+    <div class="petal-bg"></div>
+    <div class="petal-fg"></div><!-- 6 intro sections -->
 <section class="snap" id="part1"><div class="panel"><p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p></div></section>
 <section class="snap" id="part2"><div class="panel"><p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p></div></section>
 <section class="snap" id="part3"><div class="panel"><p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p><button id="btn3" class="btn">Toque para continuar</button></div></section>
@@ -153,7 +167,7 @@
 <section class="snap nostalgia2"><div class="panel"><img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%;border-radius:8px;margin-bottom:12px;"/><p>Cada sorriso, cada gesto… guardados para sempre.</p></div></section>
 <section class="snap nostalgia3"><div class="panel"><p>Agora, só falta uma pergunta ser respondida.</p><button id="open-modal" class="btn">Clique para descobrir</button></div></section>
 
-  </div>  <!-- foreground petals -->  <div class="petal-fg"></div>  <!-- proposal modal -->  <div id="proposal-modal">
+  </div>  <!-- proposal modal -->  <div id="proposal-modal">
     <div class="modal-content">
       <h2>Carolina Mariko, você aceita casar comigo? 💍</h2>
       <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;">
@@ -166,7 +180,7 @@
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
 
-    // spawn petals continuously
+    // continuous petals
     function spawnPetal(layer, size, duration) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
@@ -185,53 +199,34 @@
     document.getElementById('btn3').onclick = () => container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
 
     document.getElementById('portalBtn').onclick = () => {
-      // swirl overlay
-      const swirl = document.createElement('div');
-      swirl.id = 'vortex';
-      document.body.append(swirl);
+      const swirl = document.createElement('div'); swirl.id = 'vortex'; document.body.append(swirl);
       swirl.animate([
         { transform: 'scale(0.5) rotate(0deg)', opacity: 1 },
         { transform: 'scale(3) rotate(720deg)', opacity: 0 }
       ], { duration: 3000, easing: 'linear', fill: 'forwards' });
-
-      // whirlwind petals
       for (let i = 0; i < 400; i++) {
         setTimeout(() => {
-          const pet = document.createElement('img');
-          pet.src = 'assets/petal.png';
-          pet.className = 'petal';
-          pet.style.position = 'fixed';
-          pet.style.top = Math.random() * 100 + 'vh';
-          pet.style.left = Math.random() * 100 + 'vw';
-          pet.style.width = (10 + Math.random() * 30) + 'px';
-          pet.style.animation = 'fall 3s linear forwards';
-          document.body.append(pet);
-          setTimeout(() => pet.remove(), 3000);
+          const pet = document.createElement('img'); pet.src = 'assets/petal.png'; pet.className = 'petal';
+          pet.style.position = 'fixed'; pet.style.top = Math.random() * 100 + 'vh'; pet.style.left = Math.random() * 100 + 'vw';
+          pet.style.width = (10 + Math.random() * 30) + 'px'; pet.style.animation = 'fall 3s linear forwards';
+          document.body.append(pet); setTimeout(() => pet.remove(), 3000);
         }, i * 20);
       }
-
-      // scroll after delay
       setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
       setTimeout(() => swirl.remove(), 3000);
     };
 
-    // open modal with inner petals
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
       const modal = document.querySelector('.modal-content');
       for (let i = 0; i < 200; i++) {
         setTimeout(() => {
-          const p = document.createElement('img');
-          p.src = 'assets/petal.png';
-          p.className = 'petal';
-          p.style.position = 'fixed';
-          const r = modal.getBoundingClientRect();
+          const p = document.createElement('img'); p.src = 'assets/petal.png'; p.className = 'petal';
+          p.style.position = 'fixed'; const r = modal.getBoundingClientRect();
           p.style.top = (r.top + Math.random() * r.height) + 'px';
           p.style.left = (r.left + Math.random() * r.width) + 'px';
-          p.style.width = (10 + Math.random() * 20) + 'px';
-          p.style.animation = 'fall 2s linear forwards';
-          document.body.append(p);
-          setTimeout(() => p.remove(), 2000);
+          p.style.width = (10 + Math.random() * 20) + 'px'; p.style.animation = 'fall 2s linear forwards';
+          document.body.append(p); setTimeout(() => p.remove(), 2000);
         }, Math.random() * 2000);
       }
     };
