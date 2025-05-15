@@ -150,6 +150,9 @@
   </style>
 </head>
 <body>
+  <audio id="bg-music" src="assets/musica.mp3" loop></audio>
+
+  <!-- resto do seu site -->
   <!-- fixed branches -->
   <img src="assets/branch-left.png" class="branch left" />
   <img src="assets/branch-right.png" class="branch right" />  <div id="container">
@@ -175,7 +178,11 @@
         <button id="btn-no" class="btn">Não</button>
       </div>
     </div>
-  </div>  <script>
+  </div>  
+<footer style="position: absolute; bottom: 5px; width: 100%; text-align: center; font-size: 10px; color: #aaa;">
+  Music by <a href="https://pixabay.com/users/backgroundmusicforvideos-46459014/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Maksym Malko</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Pixabay</a>
+</footer>
+<script>
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
@@ -232,5 +239,11 @@
     };
     document.getElementById('btn-yes').onclick = () => alert('💖 Ela disse SIM! 💖');
     document.getElementById('btn-no').onclick = () => alert('😉 Talvez ela precise de um tempinho.');
+window.addEventListener('load', () => {
+  const audio = document.getElementById('bg-music');
+  audio.volume = 0.3;
+  audio.play().catch(() => {
+    document.addEventListener('click', () => audio.play(), { once: true });
+  });
   </script></body>
 </html>
