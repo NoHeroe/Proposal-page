@@ -21,6 +21,7 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       position: relative;
+      z-index: 0;
     }
     /* glass panels */
     .panel {
@@ -50,14 +51,14 @@
     }
     img.branch.left  { top: 0; left: 0; }
     img.branch.right { bottom: 0; right: 0; }
-    /* petals layers */
+    /* petals layers moved out of container */
     .petal-bg {
-      position:absolute; top:0; left:0;
+      position: fixed; top:0; left:0;
       width:100%; height:100%; pointer-events:none;
       z-index: 5;
     }
     .petal-fg {
-      position:absolute; top:0; left:0;
+      position: fixed; top:0; left:0;
       width:100%; height:100%; pointer-events:none;
       z-index: 20;
     }
@@ -99,18 +100,9 @@
     #proposal-modal.show {
       opacity:1; pointer-events:auto;
     }
-    /* stars behind modal */
-    #proposal-modal::before {
-      content: '';
-      position: absolute; inset:0;
-      background: url('assets/stars.png') center/cover;
-      opacity: 0.3;
-      animation: starTwinkle 4s ease-in-out infinite alternate;
-      z-index: 29;
-    }
-    @keyframes starTwinkle {
-      0% { opacity: 0.2; }
-      100% { opacity: 0.5; }
+    /* stars behind modal moved out as overlay too if needed */
+    #stars-overlay {
+      display:none; /* optional: hide if not using */
     }
     /* modal content with gradient and glow */
     .modal-content {
@@ -135,37 +127,24 @@
       0%   { transform: scale(0.5); opacity: 0; }
       100% { transform: scale(1);   opacity: 1; }
     }
-    /* vortex overlay */
-    #vortex {
-      position: fixed; inset: 0;
-      pointer-events: none;
-      z-index: 25;
-      background: transparent;
-    }
-    #vortex::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: conic-gradient(from 0deg at 50% 50%, rgba(138,43,226,0.5), transparent 80%);
-    }
   </style>
 </head>
 <body>
-  <audio id="bg-music" src="assets/musica.mp3" loop></audio>
-
-  <!-- resto do seu site -->
+  <!-- background audio -->
+  <audio id="bg-music" src="assets/musica.mp3" autoplay loop></audio>
+  <!-- petals always visible -->
+  <div class="petal-bg"></div>
+  <div class="petal-fg"></div>
   <!-- fixed branches -->
   <img src="assets/branch-left.png" class="branch left" />
   <img src="assets/branch-right.png" class="branch right" />  <div id="container">
-    <div class="petal-bg"></div>
-    <div class="petal-fg"></div><!-- 6 intro sections -->
-<section class="snap" id="part1"><div class="panel"><p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p></div></section>
-<section class="snap" id="part2"><div class="panel"><p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p></div></section>
-<section class="snap" id="part3"><div class="panel"><p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p><button id="btn3" class="btn">Toque para continuar</button></div></section>
-<section class="snap" id="part4"><div class="panel"><p>A jornada mais linda da vida… começa com um passo inesperado.</p></div></section>
-<section class="snap" id="part5"><div class="panel"><p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p></div></section>
-<section class="snap" id="part6"><div class="panel"><p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p><button id="portalBtn" class="btn">Descobrir o segredo →</button></div></section>
-
-<!-- 3 nostalgia sections -->
+    <!-- 6 intro sections -->
+    <section class="snap" id="part1"><div class="panel"><p>“…Às vezes, o destino nos chama para caminhos inesperados…”</p></div></section>
+    <section class="snap" id="part2"><div class="panel"><p>Você já parou para pensar em como cada encontro muda o rumo da nossa vida?</p></div></section>
+    <section class="snap" id="part3"><div class="panel"><p>Alguns segredos estão reservados apenas para almas que ousam descobrir…</p><button id="btn3" class="btn">Toque para continuar</button></div></section>
+    <section class="snap" id="part4"><div class="panel"><p>A jornada mais linda da vida… começa com um passo inesperado.</p></div></section>
+    <section class="snap" id="part5"><div class="panel"><p>Entre todos os universos possíveis… que sorte a minha viver este ao seu lado.</p></div></section>
+    <section class="snap" id="part6"><div class="panel"><p>Se você sentiu algo especial até aqui… talvez haja mais esperando</p><button id="portalBtn" class="btn">Descobrir o segredo →</button></div></section><!-- nostalgia -->
 <section class="snap nostalgia1"><div class="panel"><img src="assets/memoria1.jpg" alt="Momento especial 1" style="width:100%;border-radius:8px;margin-bottom:12px;"/><p>Cada lembrança, um capítulo do nosso livro.</p></div></section>
 <section class="snap nostalgia2"><div class="panel"><img src="assets/memoria2.jpg" alt="Momento especial 2" style="width:100%;border-radius:8px;margin-bottom:12px;"/><p>Cada sorriso, cada gesto… guardados para sempre.</p></div></section>
 <section class="snap nostalgia3"><div class="panel"><p>Agora, só falta uma pergunta ser respondida.</p><button id="open-modal" class="btn">Clique para descobrir</button></div></section>
@@ -178,16 +157,14 @@
         <button id="btn-no" class="btn">Não</button>
       </div>
     </div>
-  </div>  
-<footer style="position: absolute; bottom: 5px; width: 100%; text-align: center; font-size: 10px; color: #aaa;">
-  Music by <a href="https://pixabay.com/users/backgroundmusicforvideos-46459014/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Maksym Malko</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Pixabay</a>
-</footer>
-<script>
+  </div>  <footer style="position: absolute; bottom: 5px; width: 100%; text-align: center; font-size: 10px; color: #aaa; z-index: 9;">
+    Music by <a href="https://pixabay.com/users/backgroundmusicforvideos-46459014/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Maksym Malko</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=338664" style="color: #8a2be2; text-decoration: none;">Pixabay</a>
+  </footer>  <script>
     const container = document.getElementById('container');
     const bgLayer = document.querySelector('.petal-bg');
     const fgLayer = document.querySelector('.petal-fg');
 
-    // continuous petals
+    // continuous petals everywhere
     function spawnPetal(layer, size, duration) {
       const p = document.createElement('img');
       p.src = 'assets/petal.png';
@@ -199,52 +176,66 @@
       layer.append(p);
       setTimeout(() => p.remove(), duration * 1000);
     }
-    setInterval(() => spawnPetal(bgLayer, 20, 8 + Math.random() * 4), 400);
-    setInterval(() => spawnPetal(fgLayer, 40, 5 + Math.random() * 3), 800);
+    setInterval(() => spawnPetal(bgLayer, 20, 8 + Math.random() * 4), 500);
+    setInterval(() => spawnPetal(fgLayer, 40, 5 + Math.random() * 3), 1000);
 
     // navigation
     document.getElementById('btn3').onclick = () => container.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' });
 
     document.getElementById('portalBtn').onclick = () => {
-      const swirl = document.createElement('div'); swirl.id = 'vortex'; document.body.append(swirl);
-      swirl.animate([
-        { transform: 'scale(0.5) rotate(0deg)', opacity: 1 },
-        { transform: 'scale(3) rotate(720deg)', opacity: 0 }
-      ], { duration: 3000, easing: 'linear', fill: 'forwards' });
-      for (let i = 0; i < 400; i++) {
+      // whirlwind petals only
+      for (let i = 0; i < 150; i++) {
         setTimeout(() => {
-          const pet = document.createElement('img'); pet.src = 'assets/petal.png'; pet.className = 'petal';
-          pet.style.position = 'fixed'; pet.style.top = Math.random() * 100 + 'vh'; pet.style.left = Math.random() * 100 + 'vw';
-          pet.style.width = (10 + Math.random() * 30) + 'px'; pet.style.animation = 'fall 3s linear forwards';
-          document.body.append(pet); setTimeout(() => pet.remove(), 3000);
-        }, i * 20);
+          const pet = document.createElement('img');
+          pet.src = 'assets/petal.png';
+          pet.className = 'petal';
+          pet.style.position = 'fixed';
+          pet.style.top = Math.random() * 100 + 'vh';
+          pet.style.left = Math.random() * 100 + 'vw';
+          pet.style.width = (10 + Math.random() * 30) + 'px';
+          pet.style.animation = 'fall 2s linear forwards';
+          pet.style.zIndex = 20;
+          document.body.append(pet);
+          setTimeout(() => pet.remove(), 2000);
+        }, i * 15);
       }
       setTimeout(() => container.scrollTo({ top: window.innerHeight * 6, behavior: 'smooth' }), 500);
-      setTimeout(() => swirl.remove(), 3000);
     };
 
+    // modal petals
     document.getElementById('open-modal').onclick = () => {
       document.getElementById('proposal-modal').classList.add('show');
       const modal = document.querySelector('.modal-content');
       for (let i = 0; i < 200; i++) {
         setTimeout(() => {
-          const p = document.createElement('img'); p.src = 'assets/petal.png'; p.className = 'petal';
-          p.style.position = 'fixed'; const r = modal.getBoundingClientRect();
+          const p = document.createElement('img');
+          p.src = 'assets/petal.png';
+          p.className = 'petal';
+          p.style.position = 'fixed';
+          const r = modal.getBoundingClientRect();
           p.style.top = (r.top + Math.random() * r.height) + 'px';
           p.style.left = (r.left + Math.random() * r.width) + 'px';
-          p.style.width = (10 + Math.random() * 20) + 'px'; p.style.animation = 'fall 2s linear forwards';
-          document.body.append(p); setTimeout(() => p.remove(), 2000);
-        }, Math.random() * 2000);
+          p.style.width = (10 + Math.random() * 20) + 'px';
+          p.style.animation = 'fall 2s linear forwards';
+          p.style.zIndex = 31;
+          document.body.append(p);
+          setTimeout(() => p.remove(), 2000);
+        }, Math.random() * 1500);
       }
     };
     document.getElementById('btn-yes').onclick = () => alert('💖 Ela disse SIM! 💖');
     document.getElementById('btn-no').onclick = () => alert('😉 Talvez ela precise de um tempinho.');
-window.addEventListener('load', () => {
-  const audio = document.getElementById('bg-music');
-  audio.volume = 0.3;
-  audio.play().catch(() => {
-    document.addEventListener('click', () => audio.play(), { once: true });
-  });
-});
+
+    // background music autoplay
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bg-music');
+      audio.volume = 0.2;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          document.addEventListener('click', () => audio.play(), { once: true });
+        });
+      }
+    });
   </script></body>
 </html>
