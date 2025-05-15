@@ -228,14 +228,12 @@
 
     // background music autoplay
     window.addEventListener('load', () => {
-      const audio = document.getElementById('bg-music');
-      audio.volume = 0.2;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          document.addEventListener('click', () => audio.play(), { once: true });
-        });
-      }
-    });
+  const audio = document.getElementById('bg-music');
+  audio.volume = 0.3;
+  audio.play().catch(() => {
+    // se bloquear autoplay, começa no primeiro clique
+    document.addEventListener('click', () => audio.play(), { once: true });
+  });
+});
   </script></body>
 </html>
