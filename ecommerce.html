@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecommerce — Catálogo Corporativo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <!-- Topbar -->
+  <div class="bg-slate-900 text-white text-xs">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
+      <div class="flex items-center gap-4">
+        <span class="inline-flex items-center gap-1 opacity-80"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg> Contratos corporativos • SLA 99,9%</span>
+        <span class="hidden md:inline opacity-80">Suporte 24/7</span>
+      </div>
+      <div class="opacity-80">Frete corporativo a partir de R$ 9,90</div>
+    </div>
+  </div>  <!-- Header -->  <header class="bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-slate-200 sticky top-0 z-40">
+    <div class="mx-auto max-w-7xl px-6 py-4">
+      <div class="grid grid-cols-12 items-center gap-4">
+        <a class="col-span-12 md:col-span-2 flex items-center gap-2" href="#">
+          <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600"></div>
+          <span class="text-lg font-semibold">NoHeroes Commerce</span>
+        </a>
+        <div class="col-span-12 md:col-span-6">
+          <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
+            <svg class="h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input placeholder="Buscar soluções corporativas, produtos e serviços" class="w-full text-sm focus:outline-none"/>
+            <button class="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white">Buscar</button>
+          </div>
+        </div>
+        <nav class="col-span-12 md:col-span-4 flex items-center justify-end gap-4 text-sm">
+          <a class="hover:text-slate-700" href="#">Minha conta</a>
+          <a class="relative hover:text-slate-700" href="#"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h4l2.68 13.39a2 2 0 0 0 2 1.61H19a2 2 0 0 0 2-1.61L23 7H6"/></svg><span class="absolute -right-2 -top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-[10px] font-semibold text-white">3</span></a>
+        </nav>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-4 text-sm text-slate-600">
+        <a class="rounded-full px-3 py-1 hover:bg-slate-100" href="#">Equipamentos</a>
+        <a class="rounded-full px-3 py-1 hover:bg-slate-100" href="#">Software</a>
+        <a class="rounded-full px-3 py-1 hover:bg-slate-100" href="#">Serviços</a>
+        <a class="rounded-full px-3 py-1 hover:bg-slate-100" href="#">Soluções</a>
+        <a class="rounded-full px-3 py-1 hover:bg-slate-100" href="#">Parcerias</a>
+        <span class="ml-auto inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Compras B2B facilitadas</span>
+      </div>
+    </div>
+  </header>  <!-- Hero -->  <section class="border-b border-slate-200 bg-gradient-to-br from-white to-slate-50">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="grid grid-cols-12 items-center gap-8">
+        <div class="col-span-12 md:col-span-6">
+          <span class="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700">Linha Enterprise 2025</span>
+          <h1 class="mt-3 text-3xl font-semibold leading-tight">Infra, software e serviços para escalar a sua operação</h1>
+          <p class="mt-3 text-slate-600">Catálogo com condições corporativas, faturamento via pedido, gestão de centros de custo e integração com ERP.</p>
+          <div class="mt-5 flex items-center gap-3">
+            <a href="#catalogo" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white shadow-sm hover:bg-slate-800">Ver catálogo</a>
+            <a href="#" class="rounded-xl bg-white px-5 py-3 text-sm font-medium text-slate-900 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50">Falar com vendas</a>
+          </div>
+          <div class="mt-6 flex items-center gap-6 text-xs text-slate-600">
+            <span class="inline-flex items-center gap-2"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>NF-e e boleto</span>
+            <span class="inline-flex items-center gap-2"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>SLA prioritário</span>
+            <span class="inline-flex items-center gap-2"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Entrega nacional</span>
+          </div>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+            <img src="https://picsum.photos/seed/hero-enterprise/960/540" alt="Banner" class="h-full w-full object-cover"/>
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/20" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>  <!-- Breadcrumbs / heading -->  <section id="catalogo" class="mx-auto max-w-7xl px-6 py-6">
+    <nav class="text-xs text-slate-500">
+      <ol class="flex items-center gap-2">
+        <li><a href="#" class="hover:text-slate-700">Início</a></li>
+        <li>/</li>
+        <li><a href="#" class="hover:text-slate-700">Soluções</a></li>
+        <li>/</li>
+        <li class="text-slate-700">Catálogo</li>
+      </ol>
+    </nav>
+    <div class="mt-3 flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 class="text-xl font-semibold">Catálogo — Linha Enterprise</h2>
+        <p class="text-sm text-slate-600">Placeholders realistas para simular um e-commerce B2B/B2C de empresa grande.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-xs text-slate-500">Ordenar por</label>
+        <select class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm">
+          <option>Destaque</option>
+          <option>Preço: menor para maior</option>
+          <option>Preço: maior para menor</option>
+          <option>Melhor avaliação</option>
+          <option>Mais vendidos</option>
+        </select>
+      </div>
+    </div>
+  </section>  <!-- Catalog grid with sidebar filters -->  <section class="mx-auto max-w-7xl px-6 pb-10">
+    <div class="grid grid-cols-12 gap-6">
+      <!-- Sidebar Filters (visual only) -->
+      <aside class="col-span-12 md:col-span-3">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5">
+          <div class="mb-4 flex items-center justify-between">
+            <h3 class="text-sm font-semibold">Filtros</h3>
+            <button class="text-xs text-slate-500 underline">Limpar</button>
+          </div><div class="space-y-5">
+        <div>
+          <div class="text-xs font-medium text-slate-500">Categoria</div>
+          <div class="mt-2 space-y-2 text-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Notebooks</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Monitores</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Licenças</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Serviços Gerenciados</label>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-medium text-slate-500">Preço</div>
+          <div class="mt-2 flex items-center gap-3">
+            <input placeholder="R$ mín" class="w-1/2 rounded-lg border border-slate-200 px-3 py-2 text-sm"/>
+            <input placeholder="R$ máx" class="w-1/2 rounded-lg border border-slate-200 px-3 py-2 text-sm"/>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-medium text-slate-500">Disponibilidade</div>
+          <div class="mt-2 space-y-2 text-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Em estoque</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> Entrega programada</label>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-medium text-slate-500">Avaliação</div>
+          <div class="mt-2 space-y-2 text-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> ★★★★☆ ou mais</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-slate-300"/> ★★★☆☆ ou mais</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-sky-50 to-white p-5">
+      <div class="text-xs font-medium text-sky-700">Programa Corporativo</div>
+      <div class="mt-1 text-base font-semibold text-slate-900">Condições para volume</div>
+      <p class="mt-1 text-sm text-slate-600">Assine para desbloquear preços por contrato, faturamento e gestão de centros de custo.</p>
+      <a href="#" class="mt-3 inline-block rounded-lg bg-sky-600 px-4 py-2 text-xs font-medium text-white hover:bg-sky-700">Solicitar contato</a>
+    </div>
+  </aside>
+
+  <!-- Product Grid -->
+  <div class="col-span-12 md:col-span-9">
+    <!-- Promo banner -->
+    <div class="relative mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-medium text-amber-700">Campanha limitada</div>
+          <div class="text-lg font-semibold">Até 20% OFF em contratos anuais</div>
+          <div class="text-sm text-slate-600">Aplicável a licenças e serviços gerenciados selecionados.</div>
+        </div>
+        <a href="#" class="rounded-xl bg-slate-900 px-4 py-2 text-xs font-medium text-white">Ver condições</a>
+      </div>
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-500"></div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Card Template x9 -->
+      <!-- 1 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="relative">
+          <img src="https://picsum.photos/seed/prod-1/720/480" class="h-48 w-full object-cover" alt="Notebook Pro 15"/>
+          <span class="absolute left-3 top-3 rounded-full bg-emerald-100 px-2 py-1 text-[11px] font-medium text-emerald-700">Em estoque</span>
+        </div>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Notebook Pro 15 — Série E</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU NP15E-001</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">Intel® i7, 16GB, SSD 512GB, tela 15.6” FHD. Ideal para equipes de campo e analistas.</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★★ <span class="ml-1 text-[11px] text-slate-500">(248)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-xs text-slate-500 line-through">R$ 8.499,00</div>
+              <div class="text-lg font-semibold">R$ 7.299,00</div>
+              <div class="text-[11px] text-slate-500">ou 12x de R$ 608,25</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="relative">
+          <img src="https://picsum.photos/seed/prod-2/720/480" class="h-48 w-full object-cover" alt="Monitor 27 4K"/>
+          <span class="absolute left-3 top-3 rounded-full bg-sky-100 px-2 py-1 text-[11px] font-medium text-sky-700">Mais vendido</span>
+        </div>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Monitor 27” 4K — Coloração Pro</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU M27K-201</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">Painel IPS, 99% sRGB, regulagem ergonômica. Certificação para design e dados.</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★☆ <span class="ml-1 text-[11px] text-slate-500">(1.102)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-xs text-slate-500 line-through">R$ 2.299,00</div>
+              <div class="text-lg font-semibold">R$ 1.899,00</div>
+              <div class="text-[11px] text-slate-500">em até 10x sem juros</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="relative">
+          <img src="https://picsum.photos/seed/prod-3/720/480" class="h-48 w-full object-cover" alt="Licença Suite Analytics"/>
+          <span class="absolute left-3 top-3 rounded-full bg-purple-100 px-2 py-1 text-[11px] font-medium text-purple-700">Digital</span>
+        </div>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Licença Suite Analytics — Anual</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU SA-ANUAL</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">BI em nuvem com dashboards prontos, SSO e integrações nativas (ERP/CRM).</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★★ <span class="ml-1 text-[11px] text-slate-500">(542)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-xs text-slate-500">a partir de</div>
+              <div class="text-lg font-semibold">R$ 129,00/mês</div>
+              <div class="text-[11px] text-slate-500">cobrança anual</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Configurar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <img src="https://picsum.photos/seed/prod-4/720/480" class="h-48 w-full object-cover" alt="Docking Station"/>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Docking Station USB‑C — 9 portas</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU DS-9P</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">Expansão para squads híbridos: HDMI, DP, RJ‑45, USB‑A, USB‑C PD.</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★☆ <span class="ml-1 text-[11px] text-slate-500">(329)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-lg font-semibold">R$ 799,00</div>
+              <div class="text-[11px] text-slate-500">Pronta entrega</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <img src="https://picsum.photos/seed/prod-5/720/480" class="h-48 w-full object-cover" alt="Cadeira Ergonômica"/>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Cadeira Ergonômica — Linha Office</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU CH-ERG</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">Apoio lombar e ajustes 4D. Recomendada por especialistas em ergonomia.</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★☆ <span class="ml-1 text-[11px] text-slate-500">(2.014)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-lg font-semibold">R$ 1.299,00</div>
+              <div class="text-[11px] text-slate-500">Frete corporativo</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <img src="https://picsum.photos/seed/prod-6/720/480" class="h-48 w-full object-cover" alt="Headset com ANC"/>
+        <div class="p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-sm font-semibold text-slate-900">Headset Pro com ANC — USB‑C</h3>
+            <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU HS-ANC</span>
+          </div>
+          <p class="mt-1 line-clamp-2 text-xs text-slate-600">Chamadas cristalinas para squads remotos. Compatível com Teams e Meet.</p>
+          <div class="mt-2 flex items-center gap-1 text-amber-500">★★★☆☆ <span class="ml-1 text-[11px] text-slate-500">(418)</span></div>
+          <div class="mt-3 flex items-end justify-between">
+            <div>
+              <div class="text-lg font-semibold">R$ 499,00</div>
+              <div class="text-[11px] text-slate-500">Envio em 48h</div>
+            </div>
+            <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+          </div>
+        </div>
+      </article>
+
+       <!-- 7 -->
+          <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src="https://picsum.photos/seed/prod-7/720/480" class="h-48 w-full object-cover" alt="Switch 24 portas"/>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-900">Switch Gerenciável 24P — Gigabit</h3>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU SW24G-MAN</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-xs text-slate-600">QoS, VLAN, empilhamento. Ideal para escritórios e filiais.</p>
+              <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★☆ <span class="ml-1 text-[11px] text-slate-500">(187)</span></div>
+              <div class="mt-3 flex items-end justify-between">
+                <div>
+                  <div class="text-lg font-semibold">R$ 2.199,00</div>
+                  <div class="text-[11px] text-slate-500">Entrega nacional</div>
+                </div>
+                <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8 -->
+          <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src="https://picsum.photos/seed/prod-8/720/480" class="h-48 w-full object-cover" alt="Serviço Onboarding"/>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-900">Serviço de Onboarding — 50 usuários</h3>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU SVC-ONB50</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-xs text-slate-600">Implantação guiada, treinamento e materiais para adoção acelerada.</p>
+              <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★★ <span class="ml-1 text-[11px] text-slate-500">(73)</span></div>
+              <div class="mt-3 flex items-end justify-between">
+                <div>
+                  <div class="text-lg font-semibold">R$ 6.990,00</div>
+                  <div class="text-[11px] text-slate-500">Agendamento por e‑mail</div>
+                </div>
+                <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 9 -->
+          <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src="https://picsum.photos/seed/prod-9/720/480" class="h-48 w-full object-cover" alt="Nobreak 1500VA"/>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="text-sm font-semibold text-slate-900">Nobreak 1500VA — Linha Data</h3>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600">SKU NB1500D</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-xs text-slate-600">Proteção para racks e workstations. Gestão via USB/RS‑232.</p>
+              <div class="mt-2 flex items-center gap-1 text-amber-500">★★★★☆ <span class="ml-1 text-[11px] text-slate-500">(455)</span></div>
+              <div class="mt-3 flex items-end justify-between">
+                <div>
+                  <div class="text-lg font-semibold">R$ 1.499,00</div>
+                  <div class="text-[11px] text-slate-500">Garantia 24 meses</div>
+                </div>
+                <a href="#" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white">Adicionar</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Pagination (visual) -->
+        <div class="mt-8 flex items-center justify-center gap-2 text-sm">
+          <a class="rounded-lg px-3 py-2 text-slate-500 ring-1 ring-slate-200 hover:bg-slate-50" href="#">Anterior</a>
+          <a class="rounded-lg bg-slate-900 px-3 py-2 font-medium text-white" href="#">1</a>
+          <a class="rounded-lg px-3 py-2 ring-1 ring-slate-200 hover:bg-slate-50" href="#">2</a>
+          <a class="rounded-lg px-3 py-2 ring-1 ring-slate-200 hover:bg-slate-50" href="#">3</a>
+          <a class="rounded-lg px-3 py-2 text-slate-500 ring-1 ring-slate-200 hover:bg-slate-50" href="#">Próxima</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust / badges -->
+  <section class="bg-white border-t border-b border-slate-200">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-lg bg-slate-100"></div>
+          <div>
+            <div class="font-semibold">Faturamento para PJ</div>
+            <div class="text-slate-600">Boleto, NF‑e e pedido</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-lg bg-slate-100"></div>
+          <div>
+            <div class="font-semibold">Suporte 24/7</div>
+            <div class="text-slate-600">Atendimento prioritário</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-lg bg-slate-100"></div>
+          <div>
+            <div class="font-semibold">Envio expresso</div>
+            <div class="text-slate-600">Cobertura nacional</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-lg bg-slate-100"></div>
+          <div>
+            <div class="font-semibold">Garantia estendida</div>
+            <div class="text-slate-600">Planos empresariais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter (visual) -->
+  <section class="bg-gradient-to-br from-slate-50 to-white">
+    <div class="mx-auto max-w-7xl px-6 py-12">
+      <div class="grid grid-cols-12 items-center gap-6">
+        <div class="col-span-12 md:col-span-6">
+          <h3 class="text-lg font-semibold">Receba condições para contratos e lotes</h3>
+          <p class="mt-1 text-sm text-slate-600">Inscreva sua empresa e receba propostas sob medida para sua operação.</p>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <div class="flex overflow-hidden rounded-xl border border-slate-200 bg-white">
+            <input placeholder="nome@empresa.com" class="w-full px-4 py-3 text-sm focus:outline-none"/>
+            <button class="bg-slate-900 px-5 text-sm font-medium text-white">Inscrever</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-300">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div>
+          <div class="text-white">NoHeroes Commerce</div>
+          <p class="mt-2 text-sm text-slate-400">Catálogo ilustrativo. Conteúdo com placeholders consistentes para portfólio.</p>
+        </div>
+        <div>
+          <div class="text-white">Soluções</div>
+          <ul class="mt-2 space-y-1 text-sm">
+            <li><a href="#" class="hover:text-white">Equipamentos</a></li>
+            <li><a href="#" class="hover:text-white">Software</a></li>
+            <li><a href="#" class="hover:text-white">Serviços</a></li>
+            <li><a href="#" class="hover:text-white">Parcerias</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-white">Empresa</div>
+          <ul class="mt-2 space-y-1 text-sm">
+            <li><a href="#" class="hover:text-white">Sobre</a></li>
+            <li><a href="#" class="hover:text-white">Carreiras</a></li>
+            <li><a href="#" class="hover:text-white">Imprensa</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-white">Contato</div>
+          <ul class="mt-2 space-y-1 text-sm">
+            <li>comercial@noheroes.co</li>
+            <li>+55 (11) 5555-0000</li>
+            <li>Seg a Sex — 9h às 18h</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 flex items-center justify-between border-t border-white/10 pt-6 text-xs text-slate-400">
+        <div>© <span id="year"></span> NoHeroes — Exemplo visual</div>
+        <div>Termos • Privacidade</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
